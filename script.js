@@ -28,10 +28,42 @@ function operate(a, b, operator){
     return result;
 }
 
-let firstNum = 2;
-let secondNum = 3;
-let operator = '+';
+function clear(){
 
-console.log(operate(firstNum, secondNum, operator));
+}
+
+let firstNum = 0;
+let secondNum = null;
+let operator = null;
+let displayValue = 0;
+
+
+const display = document.querySelector('#display');
+const numbers = document.querySelectorAll('.number');
+numbers.forEach((button) => {
+    button.addEventListener('click', () =>{
+        if(display.textContent === '0'){
+            display.textContent = button.id;
+        }
+        else {
+            display.textContent = display.textContent + button.id;
+        }
+    });
+});
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () =>{
+    display.textContent = 0;
+});
+
+
+
+
+
+
+
+
+
+//console.log(operate(firstNum, secondNum, operator));
 
 
