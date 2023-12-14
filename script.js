@@ -29,31 +29,62 @@ function operate(a, b, operator){
 }
 
 function clear(){
-
+    firstNum = null;
+    secondNum = null;
+    operator = null;
 }
 
-let firstNum = 0;
+let firstNum = null;
 let secondNum = null;
 let operator = null;
-let displayValue = 0;
-
+let displayValue = null;
+let clearNeeded = false;
 
 const display = document.querySelector('#display');
 const numbers = document.querySelectorAll('.number');
 numbers.forEach((button) => {
     button.addEventListener('click', () =>{
-        if(display.textContent === '0'){
+        if (clearNeeded === true){
+            display.textContent = button.id;
+            clearNeeded = false;
+        }
+        else if(display.textContent === '0'){
             display.textContent = button.id;
         }
         else {
             display.textContent = display.textContent + button.id;
         }
+
+        
     });
 });
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () =>{
     display.textContent = 0;
+    clear();
+});
+
+const operatorButtons = document.querySelectorAll('.operator');
+operatorButtons.forEach((button) =>{
+    button.addEventListener('click', () =>{
+        if (operator === null){
+            firstNum = display.textContent;
+            operator = button.id;
+            clearNeeded = true;
+        }
+    
+    });
+});
+
+const equalButton = document.querySelector('#equal');
+equalButton.addEventListener('click', () =>{
+    if (operator != null){
+        displayValue = operate(parseInt(firstNum), parseInt(display.textContent), operator);
+        clear();
+        display.textContent = displayValue;
+        clearNeeded = true;
+    }
 });
 
 
