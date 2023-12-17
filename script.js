@@ -39,11 +39,14 @@ let secondNum = null;
 let operator = null;
 let displayValue = null;
 let clearNeeded = false;
+let equalEntered = false;
+let operatorRecent = false;
 
 const display = document.querySelector('#display');
 const numbers = document.querySelectorAll('.number');
 numbers.forEach((button) => {
     button.addEventListener('click', () =>{
+        operatorRecent = false;
         if (clearNeeded === true){
             display.textContent = button.id;
             clearNeeded = false;
@@ -53,14 +56,13 @@ numbers.forEach((button) => {
         }
         else {
             display.textContent = display.textContent + button.id;
-        }
-
-        
+        }        
     });
 });
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () =>{
+    operatorRecent = false;
     display.textContent = 0;
     clear();
 });
@@ -68,33 +70,49 @@ clearButton.addEventListener('click', () =>{
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach((button) =>{
     button.addEventListener('click', () =>{
-        if (operator === null){
-            firstNum = display.textContent;
+        if (equalEntered === true){
+            operator = null;
+            secondNum = null;
+            equalEntered = false;
+        }
+        if(operatorRecent === true){
+            operator = button.id;
+        }
+        else if (operator === null){
+            firstNum = parseInt(display.textContent);
             operator = button.id;
             clearNeeded = true;
+            operatorRecent = true;
         }
-    
+        else{
+            secondNum = parseInt(display.textContent);
+            displayValue = operate(firstNum, secondNum, operator);
+            display.textContent = displayValue;
+            firstNum = displayValue;
+            operator = button.id;
+            secondNum = null;
+            clearNeeded = true;
+            operatorRecent = true;
+        }
     });
 });
 
 const equalButton = document.querySelector('#equal');
 equalButton.addEventListener('click', () =>{
-    if (operator != null){
-        displayValue = operate(parseInt(firstNum), parseInt(display.textContent), operator);
-        clear();
+    operatorRecent = false;
+    if (operator !== null){
+        if (secondNum === null){
+            secondNum = parseInt(display.textContent);
+        }
+    
+        displayValue = operate(firstNum, secondNum, operator);
         display.textContent = displayValue;
+        firstNum = displayValue;
+    
         clearNeeded = true;
+        equalEntered = true;
     }
 });
 
-
-
-
-
-
-
-
-
-//console.log(operate(firstNum, secondNum, operator));
 
 
