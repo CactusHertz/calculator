@@ -23,7 +23,12 @@ function operate(a, b, operator){
     } else if (operator === '*'){
         result = multiply(a,b);
     } else if (operator === '/'){
-        result = divide(a,b);
+        if (b === 0){
+            result = 0;
+        }
+        else {
+            result = divide(a,b);
+        }
     }
     return result;
 }

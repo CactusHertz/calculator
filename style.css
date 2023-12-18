@@ -1,0 +1,32 @@
+#numbers {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+#equal {
+    flex: 0 0 calc(33%)
+}
+
+#operators{
+    display: flex;
+    width: 200px;
+}
+#clear{
+    flex: 0 0 calc(19%);
+}
+
+.operator {
+    flex: 0 0 calc(20%);
+}
+
+
+.number {
+    flex: 0 0 calc(33%);
+}
+
+
+
+[id="0"] {
+    flex: 0 0 calc(66%);
+}
